@@ -4,9 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -18,15 +17,16 @@ import java.util.List;
  */
 
 @Data
-@Table
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
 public class TacoOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date placedAt;
+    private Date placedAt = new Date();
     private String deliveryName;
     private String deliveryStreet;
     private String deliveryCity;
@@ -35,5 +35,6 @@ public class TacoOrder implements Serializable {
     private String ccNumber;
     private String ccExpiration;
     private String ccCVV;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Taco> tacos;
 }

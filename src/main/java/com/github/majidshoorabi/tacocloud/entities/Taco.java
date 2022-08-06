@@ -1,9 +1,8 @@
 package com.github.majidshoorabi.tacocloud.entities;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +13,18 @@ import java.util.List;
  */
 
 @Data
-@Table
+@Entity
 public class Taco {
 
-
-    private String name;
-    private List<Ingredient> ingredients;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date createdAt = new Date();
+    private String name;
+    @ManyToMany
+    private List<Ingredient> ingredients;
+
+    public void addIngredient(Ingredient ingredient){
+        this.ingredients.add(ingredient);
+    }
 }
