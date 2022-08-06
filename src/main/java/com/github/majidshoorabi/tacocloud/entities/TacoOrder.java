@@ -1,6 +1,11 @@
 package com.github.majidshoorabi.tacocloud.entities;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,9 +18,13 @@ import java.util.List;
  */
 
 @Data
+@Table
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
 public class TacoOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
     private Long id;
     private Date placedAt;
     private String deliveryName;
